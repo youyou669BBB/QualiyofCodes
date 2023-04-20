@@ -1,6 +1,46 @@
+<!DOCTYPE html>
+<html>
 <head>
-	<title>Jeu de balle</title>
+	<title>SVG Game</title>
 	<style>
 		svg {
 			border: 1px solid black;
-    }
+		}
+	</style>
+</head>
+<body>
+	<h1>SVG Game</h1>
+	<p>Click on the circle as many times as you can in 10 seconds.</p>
+	<svg id="svgCanvas" width="400" height="400">
+		<circle id="circle" cx="200" cy="200" r="50" fill="red"/>
+	</svg>
+	<script>
+		var circle = document.getElementById("circle");
+		var score = 0;
+		var temps = 10;
+		var timerId = setInterval(countdown, 1000);
+		circle.addEventListener("click", handleClick);
+
+		function countdown() {
+			if (temps == 0) {
+				clearInterval(timerId);
+				alert("Jeu terminé! Ton score est: " + score);
+			} else {
+				temps--;
+				document.getElementById("temps").textContent = temps;
+			}
+		}
+
+		function handleClick() {
+			score++;
+			document.getElementById("score").textContent = score;
+			var newX = Math.floor(Math.random() * 350) + 25;
+			var newY = Math.floor(Math.random() * 350) + 25;
+			circle.setAttribute("cx", newX);
+			circle.setAttribute("cy", newY);
+		}
+	</script>
+	<p>Temps restant: <span id="temps">10</span></p>
+	<p>Votre score: <span id="score">0</span></p>
+</body>
+</html>
